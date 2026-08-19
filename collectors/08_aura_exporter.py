@@ -18,7 +18,9 @@ logger = logging.getLogger(__name__)
 
 ROOT = Path(os.environ.get('SOURCEWELL_ROOT', str(Path(__file__).resolve().parent.parent / 'data')))
 BASE_DIR = ROOT / 'aura'
-API_URL = 'https://hoirqrkdgbmvpwutwuwj.supabase.co'
+# Aura's Supabase project URL. This is the public anon endpoint for aura.build.
+# Override with AURA_SUPABASE_URL if Aura changes it / you point at a fork.
+API_URL = os.environ.get('AURA_SUPABASE_URL', 'https://hoirqrkdgbmvpwutwuwj.supabase.co')
 ANON_KEY = os.environ.get('AURA_SUPABASE_ANON_KEY', '')
 
 
