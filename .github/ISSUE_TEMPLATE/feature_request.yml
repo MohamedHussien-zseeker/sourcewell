@@ -1,0 +1,31 @@
+name: Feature request
+about: Suggest a new source, collector, or improvement
+title: "[feat] "
+labels: enhancement
+body:
+  - type: textarea
+    id: want
+    attributes:
+      label: What do you want?
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Which source or library (if adding a collector)?
+      placeholder: "URL, free/paid, license"
+    validations:
+      required: false
+  - type: textarea
+    id: why
+    attributes:
+      label: Why is it useful?
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: "I confirmed this source can be collected without violating its ToS"
+        - label: "I am not requesting paywalled content I am not licensed for"

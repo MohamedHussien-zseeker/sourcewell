@@ -1,0 +1,40 @@
+name: Bug report
+about: Report a problem with a collector or the build
+title: "[bug] "
+labels: bug
+body:
+  - type: input
+    id: which
+    attributes:
+      label: Which collector or step failed?
+      placeholder: "08_aura_exporter.py or build/build_catalog.py"
+    validations:
+      required: true
+  - type: textarea
+    id: ran
+    attributes:
+      label: What did you run?
+      render: bash
+      placeholder: "python collectors/08_aura_exporter.py --limit 50"
+    validations:
+      required: true
+  - type: textarea
+    id: happened
+    attributes:
+      label: What happened (paste error / last lines)?
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: "I have NOT pasted any API key or cookie into this issue"
+        - label: "I ran python -m py_compile collectors/*.py build/*.py with no errors"

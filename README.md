@@ -68,3 +68,14 @@ not redistribute downloaded material. The open-source libraries carry their own
 upstream licenses — keep their notices.
 
 This repo is provided as-is, no warranty.
+
+## Governance
+- `CONTRIBUTING.md` — how to add collectors / PR guidelines
+- `CODE_OF_CONDUCT.md` — community standards
+- `SECURITY.md` — how to report vulnerabilities privately
+- `AUTH_GUIDE.md` — per-source sign-in / key instructions
+- `SKILL.md` — drop-in Hermes/Agent skill wrapper for this repo
+
+## Use it as a skill
+`SKILL.md` is vendored here so agent tooling (Hermes, etc.) can load this repo as
+a skill: clone it, configure `.env`, run `run_all.py`, then `build/build_catalog.py`.

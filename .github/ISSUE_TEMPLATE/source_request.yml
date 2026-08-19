@@ -1,0 +1,27 @@
+name: Source request
+about: Ask to add a new design library as a collector
+title: "[source] "
+labels: source-request
+body:
+  - type: input
+    id: lib
+    attributes:
+      label: Library name and URL
+    validations:
+      required: true
+  - type: checkboxes
+    id: access
+    attributes:
+      label: Access model
+      options:
+        - label: "Free / public"
+        - label: "Free account required"
+        - label: "Paid (I own a license)"
+        - label: "Unknown"
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes or API details
+      placeholder: "has a /registry.json, Supabase backend, needs session cookie"
+    validations:
+      required: false
