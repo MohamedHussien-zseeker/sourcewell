@@ -1,0 +1,11 @@
+# collected data (never commit)
+data/
+*.log
+.env
+__pycache__/
+*.pyc
+
+# generated build outputs
+build/gallery/data.js
+build/gallery/aura_full.json
+build/gallery/catalog_meta.json

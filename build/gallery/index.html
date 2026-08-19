@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Sourcewell — source catalog of your collected design templates, components & skills</title>
+<meta name="description" content="Sourcewell is a searchable directory of the templates, UI components and design skills — real source only, from your local work-Helium library." />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { darkMode:'class', theme:{ extend:{
+    fontFamily:{ sans:['Inter','system-ui','sans-serif'] },
+    colors:{ lb:'#38bdf8', lb2:'#0ea5e9', lb3:'#22d3ee' } } } };
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root { color-scheme: dark; }
+  html { scroll-behavior: smooth; }
+  body { background:#05070d; color:#e7ecf3; font-family:Inter,system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  ::selection { background:#38bdf8; color:#03101f; }
+  @keyframes gradient-shift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+  .grad-text { background-image:linear-gradient(90deg,#22d3ee,#38bdf8,#0ea5e9,#38bdf8); background-size:300% 100%;
+    -webkit-background-clip:text; background-clip:text; color:transparent; animation:gradient-shift 6s ease infinite; }
+  @keyframes aurora-move { 0%{background-position:50% 50%,50% 50%} 50%{background-position:100% 50%,100% 50%} 100%{background-position:50% 50%,50% 50%} }
+  .aurora { position:absolute; inset:-10%; background-image:
+      repeating-linear-gradient(100deg,#38bdf8 10%,#22d3ee 15%,#0ea5e9 20%,#7dd3fc 25%,#38bdf8 30%);
+    background-size:300%,200%; opacity:.14; filter:blur(30px) brightness(1.1); mix-blend-mode:screen;
+    animation:aurora-move 16s ease infinite; pointer-events:none;
+    -webkit-mask-image:radial-gradient(ellipse at 70% 0%,black 5%,transparent 70%);
+    mask-image:radial-gradient(ellipse at 70% 0%,black 5%,transparent 70%); }
+  .aura-grid { background-image:linear-gradient(rgba(56,189,248,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,.06) 1px,transparent 1px);
+    background-size:48px 48px; -webkit-mask-image:radial-gradient(ellipse at 50% 0%,black 10%,transparent 75%); mask-image:radial-gradient(ellipse at 50% 0%,black 10%,transparent 75%); }
+  @keyframes fadeInUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+  .js .reveal { opacity:0 } .reveal.in { animation:fadeInUp .7s cubic-bezier(.2,.7,.2,1) forwards; }
+  .glass { background:rgba(255,255,255,.03); border:1px solid rgba(56,189,248,.10); backdrop-filter:blur(10px); }
+  .card-hover { transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease; }
+  .card-hover:hover { transform:translateY(-5px); border-color:rgba(56,189,248,.55); box-shadow:0 18px 60px -20px rgba(56,189,248,.45); }
+  .btn-grad { background-image:linear-gradient(90deg,#38bdf8,#0ea5e9); transition:filter .2s ease,transform .2s ease; }
+  .btn-grad:hover { filter:brightness(1.12); transform:translateY(-1px); }
+  .chip { background:rgba(255,255,255,.05); border:1px solid rgba(56,189,248,.15); }
+  .tab.active { background:rgba(56,189,248,.18); border-color:rgba(56,189,248,.6); color:#fff; }
+  .tab { transition:all .2s ease; }
+  #globe { position:absolute; inset:0; width:100%; height:100%; opacity:.5; }
+  img { background:#0a0e1a; }
+  .code-pre { max-height:60vh; overflow:auto; max-width:100%; min-width:0; }
+  .code-font { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+  .smallcap { letter-spacing:.08em; }
+  /* detail page */
+  #detail { position:fixed; inset:0; z-index:100; overflow:auto; background:#05070d; }
+  #detail.hidden { display:none; }
+  .ph { background:linear-gradient(135deg,#0c4a6e,#082f49); display:flex;align-items:center;justify-content:center; color:#7dd3fc; font-weight:700; }
+  @media (max-width:640px){
+    h1.hero-h1{ font-size:2.3rem; line-height:1.08; }
+    #grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+    #collectionGrid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+  }
+</style>
+</head>
+<body class="relative overflow-x-hidden">
+
+<header class="fixed top-0 inset-x-0 z-50 safe-top">
+  <div class="max-w-6xl mx-auto mt-3 px-4">
+    <nav class="glass rounded-2xl px-4 py-2.5 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2 font-extrabold text-lg tracking-tight">
+        <span class="inline-grid place-items-center w-7 h-7 rounded-lg btn-grad text-slate-900">H</span><span>Sourcewell</span>
+      </a>
+      <div class="hidden md:flex items-center gap-6 text-sm text-slate-300">
+        <a href="#collections" class="hover:text-white">Collections</a>
+        <a href="#browse" class="hover:text-white">Browse</a>
+        <a href="#how" class="hover:text-white">How it works</a>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="hamburger" class="md:hidden p-2 -mr-1 text-slate-300" aria-label="menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+        <a href="#browse" class="px-4 py-1.5 rounded-xl btn-grad text-slate-900 text-sm font-semibold">Explore</a>
+      </div>
+    </nav>
+    <div id="mobileNav" class="md:hidden glass rounded-2xl mt-2 px-4 py-3 flex flex-col gap-1 text-sm hidden">
+      <a href="#collections" class="py-2 hover:text-white">Collections</a>
+      <a href="#browse" class="py-2 hover:text-white">Browse all</a>
+      <a href="#how" class="py-2 hover:text-white">How it works</a>
+    </div>
+  </div>
+</header>
+
+<!-- GALLERY VIEW -->
+<div id="galleryView">
+<section class="relative min-h-[92vh] flex items-center justify-center pt-28 pb-16 px-4">
+  <div class="absolute inset-0 aura-grid"></div>
+  <div class="absolute inset-0"><div class="aurora"></div></div>
+  <canvas id="globe"></canvas>
+  <div class="relative z-10 max-w-4xl mx-auto text-center">
+    <div class="reveal in inline-flex items-center gap-2 chip rounded-full px-3 py-1 text-xs text-slate-300 mb-6">
+      <span class="w-1.5 h-1.5 rounded-full bg-lb animate-pulse"></span> <span id="heroCount">23,000+</span> real source files · components · skills
+    </div>
+    <h1 class="hero-h1 reveal in font-black tracking-tight leading-[1.05] text-5xl sm:text-6xl md:text-7xl">
+      The <span class="grad-text">source directory</span> of every<br class="hidden sm:block" /> design asset you'll need
+    </h1>
+    <p class="reveal in mt-6 text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto">
+      One search across <b id="heroCount2">23,000+</b> real source files — pulled from Aura, Magic UI, Origin UI, Aceternity,
+      21st-dev, Unlumen and more. No metadata. Just the real code.
+    </p>
+    <div class="reveal in mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+      <a href="#browse" class="px-6 py-3 rounded-xl btn-grad text-slate-900 font-semibold">Browse the library</a>
+      <a href="#collections" class="px-6 py-3 rounded-xl glass text-slate-200 font-semibold hover:text-white">See collections</a>
+    </div>
+    <form class="reveal in mt-8 max-w-xl mx-auto relative" onsubmit="event.preventDefault(); jumpToBrowse(this.q.value);">
+      <input id="heroSearch" name="q" autocomplete="off" placeholder="Search 23,000+ files — e.g. 'button', 'globe', 'meditation'…"
+        class="w-full px-5 py-3.5 rounded-2xl bg-black/40 border border-white/10 text-white outline-none focus:border-lb text-sm sm:text-base" />
+      <button class="absolute right-2 top-2 bottom-2 px-4 rounded-xl btn-grad text-slate-900 text-sm font-semibold">Search</button>
+    </form>
+  </div>
+</section>
+
+<section class="py-8 border-y border-white/5 bg-white/[.015]">
+  <div class="overflow-hidden">
+    <div class="marquee-track gap-4 pr-4 inline-flex" id="marquee"></div>
+  </div>
+</section>
+
+<section id="collections" class="max-w-6xl mx-auto px-4 py-20">
+  <div class="text-center max-w-2xl mx-auto mb-12">
+    <h2 class="reveal font-extrabold tracking-tight text-4xl sm:text-5xl"><span id="colCount">10</span> curated <span class="grad-text">collections</span></h2>
+    <p class="reveal mt-4 text-slate-400">Each is a real export of source files from a live design library, normalized into one searchable index.</p>
+  </div>
+  <div id="collectionGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+</section>
+
+<section id="browse" class="max-w-6xl mx-auto px-4 py-12">
+  <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
+    <div>
+      <h2 class="reveal font-extrabold tracking-tight text-3xl sm:text-4xl">Browse &amp; search</h2>
+      <p class="reveal mt-2 text-slate-400"><span id="resultCount">—</span> files · type to filter, tap a collection to scope.</p>
+    </div>
+  </div>
+  <div class="flex flex-col lg:flex-row gap-4">
+    <aside class="lg:w-64 shrink-0">
+      <div class="glass rounded-2xl p-4 sticky top-24">
+        <input id="search" placeholder="Filter…" class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-sm outline-none focus:border-lb mb-3" />
+        <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">Type</div>
+        <div id="kindTabs" class="flex flex-wrap gap-1.5 mb-4"></div>
+        <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">Collections</div>
+        <div id="filterCols" class="flex flex-col gap-1 max-h-72 overflow-auto pr-1"></div>
+        <button id="clearFilters" class="mt-3 text-xs text-slate-400 hover:text-white underline">Clear filters</button>
+      </div>
+    </aside>
+    <div class="flex-1">
+      <div id="grid" class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4"></div>
+      <div id="loading" class="text-center text-slate-500 py-10 hidden">Loading more…</div>
+      <div id="empty" class="text-center text-slate-500 py-16 hidden">No matches. Try a different term.</div>
+    </div>
+  </div>
+</section>
+
+<section id="how" class="max-w-4xl mx-auto px-4 py-20">
+  <h2 class="reveal text-center font-extrabold tracking-tight text-4xl mb-12">Three steps to ship</h2>
+  <div class="grid sm:grid-cols-3 gap-6">
+    <div class="reveal glass rounded-2xl p-6"><div class="text-lb3 font-mono text-sm mb-2">01</div><div class="font-semibold mb-1">Search</div><p class="text-sm text-slate-400">Find a template, component or skill across every source at once.</p></div>
+    <div class="reveal glass rounded-2xl p-6"><div class="text-lb font-mono text-sm mb-2">02</div><div class="font-semibold mb-1">Open</div><p class="text-sm text-slate-400">Open the source, copy the pattern, make it yours.</p></div>
+    <div class="reveal glass rounded-2xl p-6"><div class="text-lb2 font-mono text-sm mb-2">03</div><div class="font-semibold mb-1">Ship</div><p class="text-sm text-slate-400">Export clean TSX / HTML and deploy anywhere.</p></div>
+  </div>
+</section>
+
+<section class="max-w-4xl mx-auto px-4 py-20 text-center">
+  <div class="reveal glass rounded-3xl p-10 sm:p-14 relative overflow-hidden">
+    <div class="absolute inset-0 aura-grid opacity-50"></div>
+    <div class="relative">
+      <h2 class="font-extrabold tracking-tight text-4xl sm:text-5xl">Your design library, finally searchable</h2>
+      <p class="mt-4 text-slate-400"><span id="ctaCount">23,000+</span> real source files from <span id="ctaCols">10</span> collections, one search bar.</p>
+      <a href="#browse" class="mt-7 inline-block px-6 py-3 rounded-xl btn-grad text-slate-900 font-semibold">Start browsing</a>
+    </div>
+  </div>
+</section>
+</div>
+
+<footer class="border-t border-white/5 py-10 text-center text-sm text-slate-500 px-4">
+  Sourcewell · a source directory built from your own collected library (Aura, Origin UI, Magic UI, Aceternity, 21st-dev &amp; more)
+</footer>
+
+<!-- DETAIL VIEW -->
+<div id="detail" class="hidden">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-6">
+    <header class="flex items-center justify-between mb-5">
+      <a id="backBtn" class="text-slate-400 hover:text-white text-sm cursor-pointer">← Back to gallery</a>
+      <div class="flex items-center gap-2"><div class="w-7 h-7 rounded-lg btn-grad"></div><span class="font-extrabold tracking-tight">Helium</span></div>
+    </header>
+    <div id="dContent"></div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script>
+const DATA = (window.__HELIUM__ ? window.__HELIUM__ : (typeof HELIUM!=='undefined'?HELIUM:null));
+let state = { q:'', kind:'all', col:'all', cap:120, cur:null };
+const LOCAL = (location.hostname==='localhost'||location.hostname==='127.0.0.1');
+
+function esc(s){ return (s==null?'':String(s)).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m])); }
+function fmt(n){ return n>=1000 ? (n/1000).toFixed(n>=10000?0:1)+'k' : ''+n; }
+function initials(name){ return (name||'?').replace(/[^a-zA-Z0-9]/g,'').charAt(0).toUpperCase()||'?'; }
+function avatar(name){ return `<span class="w-6 h-6 rounded-full btn-grad flex items-center justify-center text-[11px] font-bold text-slate-900">${esc(initials(name))}</span>`; }
+
+/* ---------- data layer ---------- */
+const ITEMS = DATA.items;
+const BY_ID = {}; ITEMS.forEach(it=>BY_ID[it.id]=it);
+const COLS = DATA.meta.collections;
+const AUTHOR_IDX = DATA.authorIdx||{};
+const CAT_IDX = DATA.catIdx||{};
+const isAura = it => it.col==='aura';
+
+/* ---------- gallery render ---------- */
+const grid = document.getElementById('grid');
+function card(it){
+  const hasImg = !!it.img;
+  const isCode = !isAura(it);
+  if(isAura(it)){
+    return `<button data-id="${esc(it.id)}" class="card-hover glass rounded-2xl overflow-hidden flex flex-col text-left w-full">
+      <div class="aspect-[16/10] bg-slate-900 relative">
+        <img src="${esc(it.img)}" alt="" loading="lazy" class="w-full h-full object-cover"
+             onerror="this.parentNode.innerHTML='<div class=\\'ph\\' style=\\'width:100%;height:100%\\'>aura</div>'" />
+        ${it.pro?'<span class="absolute top-2 right-2 text-[10px] font-bold px-1.5 py-0.5 rounded bg-lb text-slate-900">PRO</span>':''}
+      </div>
+      <div class="px-3 py-2.5 flex-1 flex flex-col gap-2">
+        <div class="text-sm font-semibold text-slate-100 line-clamp-2 leading-snug">${esc(it.title)}</div>
+        <div class="mt-auto flex items-center justify-between text-[11px] text-slate-400">
+          <span class="flex items-center gap-1.5">${avatar(it.author)}<span class="truncate max-w-[90px]">${esc(it.author)}</span></span>
+          <span class="flex items-center gap-2"><span>♺ ${fmt(it.remixes)}</span><span>♥ ${fmt(it.views)}</span></span>
+        </div>
+      </div></button>`;
+  }
+  // code card
+  const badge = it.lang.toUpperCase();
+  return `<button data-id="${esc(it.id)}" class="card-hover glass rounded-2xl overflow-hidden flex flex-col text-left w-full">
+    <div class="px-3 py-3 flex-1 flex flex-col gap-1">
+      <div class="flex items-center justify-between"><span class="text-[10px] uppercase tracking-wide text-lb border border-lb/40 rounded px-1.5 py-0.5">${badge}</span><span class="text-[10px] text-slate-500">${esc(it.col)}</span></div>
+      <div class="mt-1 text-xs sm:text-sm font-medium text-slate-200 line-clamp-2 leading-snug break-all">${esc(it.title)}</div>
+      <div class="mt-auto flex items-center justify-between text-[11px]"><span class="chip rounded px-1.5 py-0.5 text-lb2">code</span><span class="text-slate-500">${esc(it.cat)}</span></div>
+    </div></button>`;
+}
+
+function matched(){
+  const pool = state.col==='all' ? ITEMS : ITEMS.filter(f=>f.col===state.col);
+  const q = state.q.trim().toLowerCase();
+  return pool.filter(it=>{
+    if(state.kind!=='all' && it.lang!==state.kind) return false;
+    if(!q) return true;
+    const hay = (it.title+' '+it.col+' '+it.lang+' '+(it.tags||[]).join(' ')+' '+(it.cat||'')+' '+(it.author||'')).toLowerCase();
+    return hay.includes(q);
+  });
+}
+function render(){
+  const all = matched();
+  document.getElementById('resultCount').textContent = all.length.toLocaleString();
+  const slice = all.slice(0, state.cap);
+  if(slice.length===0){ grid.innerHTML=''; document.getElementById('empty').classList.remove('hidden'); }
+  else { document.getElementById('empty').classList.add('hidden'); grid.innerHTML = slice.map(card).join(''); }
+  document.getElementById('loading').classList.toggle('hidden', state.cap >= all.length);
+}
+
+/* ---------- filters ---------- */
+function buildFilters(){
+  const langs = [['all','All']].concat(Object.entries(DATA.meta.langs||{}).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,k]));
+  document.getElementById('kindTabs').innerHTML = langs.map(([k,l])=>
+    `<button data-kind="${k}" class="tab ${k==='all'?'active':''} chip rounded-lg px-2.5 py-1 text-xs">${l}</button>`).join('');
+  document.querySelectorAll('#kindTabs .tab').forEach(b=>b.onclick=()=>{ state.kind=b.dataset.kind; state.cap=120;
+    document.querySelectorAll('#kindTabs .tab').forEach(x=>x.classList.toggle('active',x===b)); render(); });
+  document.getElementById('filterCols').innerHTML =
+    `<button data-col="all" class="tab active text-left chip rounded-lg px-2.5 py-1.5 text-xs">All sources</button>` +
+    COLS.map(c=>`<button data-col="${c.key}" class="tab text-left chip rounded-lg px-2.5 py-1.5 text-xs flex justify-between gap-2"><span>${esc(c.label)}</span><span class="text-slate-500">${fmt(c.count)}</span></button>`).join('');
+  document.querySelectorAll('#filterCols .tab').forEach(b=>b.onclick=()=>{ state.col=b.dataset.col; state.cap=120;
+    document.querySelectorAll('#filterCols .tab').forEach(x=>x.classList.toggle('active',x.dataset.col===b.dataset.col)); render(); });
+}
+document.getElementById('search').addEventListener('input', e=>{ state.q=e.target.value; state.cap=120; render(); });
+document.getElementById('clearFilters').onclick = ()=>{ state={q:'',kind:'all',col:'all',cap:120,cur:null};
+  document.getElementById('search').value='';
+  document.querySelectorAll('#kindTabs .tab,#filterCols .tab').forEach(x=>x.classList.toggle('active',x.dataset.kind==='all'||x.dataset.col==='all'));
+  render(); };
+
+function buildCollectionCards(){
+  document.getElementById('collectionGrid').innerHTML = COLS.map(c=>
+    `<button onclick="openCol('${esc(c.key)}')" class="card-hover glass rounded-2xl overflow-hidden text-left">
+      <div class="px-3 py-2.5 flex items-center justify-between">
+        <div><div class="text-sm font-semibold">${esc(c.label)}</div><div class="text-[11px] text-slate-500">${esc(c.kind)}</div></div>
+        <div class="text-xs text-slate-400">${fmt(c.count)}</div>
+      </div></button>`).join('');
+}
+function openCol(key){ state.col=key; state.cap=120; window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelectorAll('#filterCols .tab').forEach(x=>x.classList.toggle('active',x.dataset.col===key));
+  document.getElementById('browse').scrollIntoView({behavior:'smooth'}); render(); }
+function jumpToBrowse(q){ document.getElementById('search').value=q; state.q=q; state.cap=120;
+  document.getElementById('browse').scrollIntoView({behavior:'smooth'}); render(); }
+
+/* ---------- detail view ---------- */
+function relatedGrid(ids, excludeId){
+  const list = ids.filter(id=>id!==excludeId).slice(0,8);
+  if(!list.length) return '';
+  return list.map(id=>{ const it=BY_ID[id]; if(!it) return '';
+    if(isAura(it)){
+      return `<a href="#${esc(it.id)}" class="rel-card glass rounded-xl overflow-hidden block">
+        <div class="aspect-[16/10] bg-slate-900"><img src="${esc(it.img)}" class="w-full h-full object-cover" loading="lazy" onerror="this.style.display='none'"></div>
+        <div class="px-2.5 py-2"><div class="text-[11px] font-semibold text-slate-200 line-clamp-2 leading-snug">${esc(it.title)}</div>
+        <div class="mt-1 flex items-center justify-between text-[10px] text-slate-400"><span>${it.pro?'<span class="text-lb font-bold">PRO</span>':'<span>free</span>'}</span><span>♥ ${fmt(it.views)}</span></div></div></a>`;
+    }
+    return `<a href="#${esc(it.id)}" class="rel-card glass rounded-xl overflow-hidden block"><div class="px-3 py-3">
+      <div class="text-[10px] uppercase text-lb border border-lb/40 rounded px-1.5 py-0.5 inline-block">${it.lang.toUpperCase()}</div>
+      <div class="mt-1 text-[11px] font-semibold text-slate-200 line-clamp-2 leading-snug break-all">${esc(it.title)}</div>
+      <div class="mt-1 text-[10px] text-slate-500">${esc(it.col)}</div></div></a>`;
+  }).join('');
+}
+
+async function openDetail(id){
+  const it = BY_ID[id];
+  if(!it) return;
+  state.cur = it;
+  const gallery = document.getElementById('galleryView');
+  const detail = document.getElementById('detail');
+  gallery.style.display='none'; detail.classList.remove('hidden');
+  detail.scrollTop = 0; window.scrollTo(0,0);
+
+  let previewHtml, metaHtml, aboutHtml='', sourceHtml='', moreHtml='', relHtml='';
+
+  if(isAura(it)){
+    previewHtml = `<div class="glass rounded-2xl overflow-hidden mb-5"><div class="aspect-[16/9] bg-slate-900 relative">
+      <img src="${esc(it.img)}" alt="" class="w-full h-full object-cover"
+        onerror="this.parentNode.innerHTML='<div class=\\'ph\\' style=\\'width:100%;height:100%;display:flex;align-items:center;justify-content:center\\'>aura preview</div>'"/>
+      ${LOCAL?`<button onclick="livePreview('${esc(it.path)}',this)" class="absolute bottom-3 right-3 px-3 py-1.5 rounded-lg glass text-xs text-slate-200">Live preview</button>`:''}
+    </div></div>`;
+    metaHtml = `<div class="flex flex-wrap items-center gap-2 text-xs text-slate-400 mb-6">
+      <span class="chip rounded-lg px-2.5 py-1">♥ ${fmt(it.views)} views</span>
+      <span class="chip rounded-lg px-2.5 py-1">♺ ${fmt(it.remixes)} remixes</span>
+      <span class="chip rounded-lg px-2.5 py-1">Created ${esc((it.path||'').slice(0,10))}</span>
+      ${(it.tags||[]).map(t=>`<span class="chip rounded-lg px-2.5 py-1">${esc(t)}</span>`).join('')}
+    </div>`;
+    if(it.desc) aboutHtml = `<div class="glass rounded-2xl p-5 mb-6"><h2 class="smallcap text-[11px] uppercase text-slate-400 mb-2">About</h2><p class="text-sm text-slate-300 leading-relaxed">${esc(it.desc)}</p></div>`;
+    moreHtml = relatedGrid(AUTHOR_IDX[it.author]||[], it.id);
+    relHtml = relatedGrid(CAT_IDX[it.cat]||[], it.id);
+  } else {
+    previewHtml = '';
+    metaHtml = '';
+    moreHtml = relatedGrid((CAT_IDX[it.cat]||[]).concat(AUTHOR_IDX[it.col]||[]), it.id);
+    relHtml = '';
+  }
+
+  const titleRow = `<div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-3">
+    <div>
+      <div class="flex items-center gap-2">
+        <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">${esc(it.title)}</h1>
+        ${it.pro?'<span class="text-[10px] font-bold px-2 py-0.5 rounded bg-lb text-slate-900">PRO</span>':''}
+      </div>
+      <div class="mt-2 flex items-center gap-2 text-sm text-slate-400">
+        ${avatar(it.author)}<span>${esc(it.author)}</span>
+        <span class="text-slate-600">·</span><span>${esc(it.cat)}</span>
+        <span class="text-slate-600">·</span><span>${esc(it.col)}</span>
+      </div>
+    </div>
+    <div class="flex gap-2 shrink-0">
+      ${isAura(it)&&LOCAL?`<button onclick="livePreview('${esc(it.path)}',this)" class="px-4 py-2 rounded-xl btn-grad text-slate-900 text-sm font-semibold">Live preview</button>`:''}
+      <button onclick="copySource()" class="px-4 py-2 rounded-xl glass text-slate-200 text-sm font-semibold">Copy source</button>
+    </div>
+  </div>`;
+
+  sourceHtml = `<div class="glass rounded-2xl overflow-hidden mb-8">
+    <div class="flex items-center justify-between px-4 py-2.5 border-b border-white/10">
+      <span class="smallcap text-[11px] uppercase text-slate-400">Source · ${esc(it.lang.toUpperCase())}</span>
+      <span class="text-[11px] text-lb2 code-font">${esc(it.path)}</span>
+    </div>
+    <pre class="code-pre code-font text-[12px] leading-relaxed text-lb2 p-4">${esc(it.code||'(source loads from disk on localhost)')}</pre>
+  </div>`;
+
+  document.getElementById('dContent').innerHTML =
+    previewHtml + titleRow + metaHtml + aboutHtml + sourceHtml +
+    (moreHtml?`<h2 class="font-bold text-lg mb-3">More from ${esc(isAura(it)?it.author:it.col)}</h2><div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">${moreHtml}</div>`:'') +
+    (relHtml?`<h2 class="font-bold text-lg mb-3">Related · ${esc(it.cat)}</h2><div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">${relHtml}</div>`:'') +
+    `<p class="text-center text-xs text-slate-500 mt-8">Sourcewell · real source from your own collection</p>`;
+  document.getElementById('detail').dataset.cur = id;
+}
+
+// load full Aura source from disk on localhost
+async function livePreview(path, btn){
+  if(!LOCAL) return;
+  const el = btn || null; const orig = el ? el.textContent : '';
+  if(el) el.textContent='Loading…';
+  try{
+    const r = await fetch('data/'+path);
+    const html = await r.text();
+    const w = window.open('', '_blank');
+    if(w){ w.document.write(html); w.document.close(); }
+  }catch(e){ if(el){ el.textContent='Load failed'; setTimeout(()=>el.textContent=orig,1500); } }
+}
+function copySource(){
+  const id = document.getElementById('detail').dataset.cur; const it = BY_ID[id];
+  if(!it) return;
+  let txt = it.code || '';
+  if(!txt && LOCAL && isAura(it)){ /* best-effort */ }
+  navigator.clipboard.writeText(txt).then(()=>{ const b=document.querySelector('#dContent button[onclick="copySource()"'); });
+}
+
+grid.addEventListener('click', e=>{ const b=e.target.closest('[data-id]'); if(b) openDetail(b.dataset.id); });
+document.getElementById('dContent').addEventListener('click', e=>{ const a=e.target.closest('a[href^="#"]'); if(a){ const id=a.getAttribute('href').slice(1); if(BY_ID[id]){ e.preventDefault(); openDetail(id); } } });
+document.getElementById('backBtn').onclick = ()=>{ document.getElementById('galleryView').style.display=''; document.getElementById('detail').classList.add('hidden'); state.cur=null; };
+
+/* hash routing -> detail */
+function route(){
+  let id = null;
+  const m = location.search.match(/[?&]detail=([^&]+)/);
+  if(m){ id = decodeURIComponent(m[1]); }
+  else if(location.hash){ id = location.hash.slice(1); }
+  if(id && BY_ID[id]){ openDetail(id); }
+  else { document.getElementById('galleryView').style.display=''; document.getElementById('detail').classList.add('hidden'); }
+}
+window.addEventListener('hashchange', route);
+
+/* ---------- marquee / counts / globe ---------- */
+function buildMarquee(){
+  const mt=document.getElementById('marquee');
+  const items = COLS.map(c=>`<span class="chip rounded-xl px-4 py-2 text-sm text-slate-300 whitespace-nowrap">${esc(c.label)} · ${fmt(c.count)}</span>`);
+  mt.innerHTML = items.join('') + items.join('');
+}
+function applyCounts(){
+  const total = DATA.meta.total||0, cols = COLS.length||0, t=total.toLocaleString();
+  const set=(id,v)=>{ const el=document.getElementById(id); if(el) el.textContent=v; };
+  set('heroCount',t); set('heroCount2',t); set('colCount',cols); set('ctaCount',t); set('ctaCols',cols);
+  const hero=document.getElementById('heroSearch'); if(hero) hero.placeholder='Search '+t+' files — e.g. \'button\', \'globe\', \'meditation\'…';
+}
+document.getElementById('hamburger').onclick=()=>document.getElementById('mobileNav').classList.toggle('hidden');
+document.querySelectorAll('#mobileNav a').forEach(a=>a.onclick=()=>document.getElementById('mobileNav').classList.add('hidden'));
+
+/* infinite scroll */
+const io = new IntersectionObserver(es=>{ es.forEach(e=>{ if(e.isIntersecting && state.cap < matched().length){ state.cap+=120; render(); } }); },{rootMargin:'400px'});
+io.observe(document.getElementById('loading'));
+const ro = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); ro.unobserve(e.target);} }),{threshold:.12});
+document.querySelectorAll('.reveal:not(.in)').forEach(el=>ro.observe(el));
+
+if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', boot); } else { boot(); }
+function boot(){
+  buildCollectionCards(); buildFilters(); buildMarquee(); applyCounts(); render(); route();
+  startGlobeSafe();
+}
+function startGlobeSafe(){ try { startGlobe(); } catch(e){} }
+function startGlobe(){
+  const cv=document.getElementById('globe'); if(!cv) return; const ctx=cv.getContext('2d'); if(!ctx) return;
+  let W=0,H=0,pts=[],raf=null,last=0,dpr=Math.min(2,Math.max(1,window.devicePixelRatio||1));
+  const N = window.innerWidth<640?420:900;
+  function resize(){ const r=cv.getBoundingClientRect(); W=Math.max(1,Math.round((r.width||cv.clientWidth||300)*dpr)); H=Math.max(1,Math.round((r.height||cv.clientHeight||300)*dpr)); cv.width=W; cv.height=H; }
+  function gen(){ pts=[]; for(let i=0;i<N;i++){ const y=1-(i/(N-1))*2; const r=Math.sqrt(Math.max(0,1-y*y)); const phi=i*2.399963; pts.push([Math.cos(phi)*r,y,Math.sin(phi)*r]); } }
+  let a=0;
+  function draw(ts){ raf=requestAnimationFrame(draw); if(!ts) ts=last+16; const dt=Math.min(48, ts-last||16); last=ts;
+    const cx=W/2, cy=H/2, R=Math.max(1, Math.min(W,H)*0.34); ctx.clearRect(0,0,W,H); const ca=Math.cos(a), sa=Math.sin(a);
+    for(let i=0;i<pts.length;i++){ let [x,y,z]=pts[i]; const x2=x*ca-z*sa, z2=x*sa+z*ca; const persp=(z2+2.2)/2.2;
+      const sx=cx+x2*R*persp, sy=cy-y*R*persp; if(!isFinite(sx)||!isFinite(sy)||!isFinite(persp)) continue;
+      const size=Math.max(0.4,(0.6+z2*0.9)*dpr); const alpha=Math.max(0.05,Math.min(0.95,0.25+persp*0.6));
+      ctx.beginPath(); ctx.arc(sx,sy,size,0,Math.PI*2); ctx.fillStyle='rgba(56,189,248,'+alpha.toFixed(3)+')'; ctx.fill(); }
+    a+=0.0009*dt; }
+  resize(); gen(); draw(performance.now());
+  let rz; addEventListener('resize',()=>{ clearTimeout(rz); rz=setTimeout(resize,150); });
+  new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ if(!raf){ last=performance.now(); raf=requestAnimationFrame(draw); } } else if(raf){ cancelAnimationFrame(raf); raf=null; } }),{threshold:0}).observe(cv);
+}
+</script>
+</body>
+</html>

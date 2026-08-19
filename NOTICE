@@ -1,0 +1,20 @@
+SOURCEWELL — NOTICE & LICENSING
+
+This repository contains collector scripts and a viewer. It does NOT contain any
+downloaded design assets.
+
+1. The collector scripts themselves are provided for your private, personal use
+   to gather source you are licensed to access.
+
+2. Downloaded material belongs to its respective owners:
+   - Aura (aura.build): commercial subscription content. Do not redistribute.
+   - Jiro, Landingfolio, BeUI Pro, Framer: commercial template marketplaces.
+   - Magic UI, Origin UI, Aceternity (free tier), Unlumen, 21st.dev (free tier),
+     TasteSkill, UI Skills: open-source / free components — respect each
+     project's upstream license (MIT / their stated terms) and retain notices.
+   - Premium / paid tiers of any source require YOUR OWN valid license key.
+
+3. You are responsible for complying with each source's Terms of Service when
+   running these collectors. This tool is provided as-is, no warranty.
+
+4. This repository is PRIVATE. Do not publish it or the data you collect.
